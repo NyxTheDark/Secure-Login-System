@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Home - User Authentication System{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to SecureAuth</h1>
+        <p>A comprehensive user registration and login system with advanced security features</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-secondary">Register</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Authentication</h3>
+                <p>Advanced password hashing with bcrypt and JWT token-based authentication</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users-cog"></i>
+                <h3>Role-Based Access</h3>
+                <p>Admin and User roles with comprehensive permission management</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock"></i>
+                <h3>Account Security</h3>
+                <p>Account lockout protection, CAPTCHA verification, and login attempt monitoring</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Admin Dashboard</h3>
+                <p>Complete user management and system statistics for administrators</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats" id="stats-section" style="display: none;">
+    <div class="container">
+        <h2>System Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3 id="total-users">0</h3>
+                <p>Total Users</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-user-check"></i>
+                <h3 id="active-users">0</h3>
+                <p>Active Users</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-sign-in-alt"></i>
+                <h3 id="recent-logins">0</h3>
+                <p>Recent Logins</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3 id="failed-attempts">0</h3>
+                <p>Failed Attempts</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuthStatus();
+    
+    // Load stats if user is admin
+    const token = localStorage.getItem('access_token');
+    if (token) {
+        const payload = parseJWT(token);
+        if (payload && payload.role === 'Admin') {
+            loadStats();
+        }
+    }
+});
+
+function loadStats() {
+    const token = localStorage.getItem('access_token');
+    
+    fetch('/admin/stats', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error loading stats:', data.error);
+            return;
+        }
+        
+        document.getElementById('total-users').textContent = data.total_users;
+        document.getElementById('active-users').textContent = data.active_users;
+        document.getElementById('recent-logins').textContent = data.recent_login_attempts;
+        document.getElementById('failed-attempts').textContent = data.failed_attempts_week;
+        
+        document.getElementById('stats-section').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error loading stats:', error);
+    });
+}
+</script>
+{% endblock %}
