@@ -17,7 +17,7 @@ Before running the application, make sure you have:
 ### Option A: If you already have the project folder
 ```bash
 # Navigate to the project directory
-cd c:\Users\RUDRA\PycharmProjects\valtec
+cd c:\yourpath\valtec
 ```
 
 ### Option B: If downloading/cloning for the first time
@@ -273,11 +273,3 @@ python app.py
 ## 🎉 Success!
 
 If you see the welcome page with beautiful gradients and can register/login successfully, congratulations! Your user authentication system is running perfectly.
-
-**Next Steps:**
-- Explore the admin dashboard
-- Test registration with different users
-- Try the security features (account lockout, etc.)
-- Share with friends using ngrok
-
-**Need Help?** Check the troubleshooting section above or refer to the complete documentation in `COMPLETE_EXPLANATION.md`.
