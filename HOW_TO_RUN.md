@@ -209,7 +209,7 @@ python check_db_content.py
 ## 📁 Project Structure
 
 ```
-valtec/
+
 ├── app.py                 # Main application file
 ├── config.py             # Configuration settings
 ├── models.py             # Database models
