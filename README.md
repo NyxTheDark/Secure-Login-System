@@ -142,3 +142,7 @@ The app uses SQLite by default (which is perfect for most people), but you can s
 5. Open a Pull Request.
 
 Thank You for giving it a try.
+
+# Note:
+
+For any kind of error, misconfigurations, or security error try the scripts present in ERROR Handling folder
