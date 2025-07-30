@@ -146,3 +146,5 @@ Thank You for giving it a try.
 # Note:
 
 For any kind of error, misconfigurations, or security error try the scripts present in ERROR Handling folder
+
+Also their are two files differences.tyt can be used as reference to known which test is run for what kind of aspect checking, and COMPLETE_Documentation.md to learn about the entire project files and their usagew summary.
